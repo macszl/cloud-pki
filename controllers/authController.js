@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const pool = require("../db");
 
 const register = async (req, res, next) => {
-  console.log(req.body);
   console.log("Registering user...");
   try {
     console.log("Hashing password...");
@@ -22,7 +21,6 @@ const register = async (req, res, next) => {
       currentDate.toLocaleDateString() + " " + currentDate.toLocaleTimeString();
     const values = [req.body.login, currentDate, currentDate, 0, hashedPass];
 
-    console.log(pool);
     const client = await pool.connect();
     try {
       await client.query("BEGIN");
@@ -70,7 +68,6 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   console.log("Logging in user...");
-  console.log(req.body);
 
   try {
     const { login, password } = req.body;
