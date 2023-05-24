@@ -166,11 +166,10 @@ function authenticateToken(req, res, next) {
 
   try {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      
       if (err) {
         console.log("Token expired or incorrect!");
         return res.sendStatus(403);
-      } 
+      }
       req.user = user;
       next();
     });
@@ -181,7 +180,7 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "10m" });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" });
 }
 
 module.exports = {
