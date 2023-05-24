@@ -169,8 +169,11 @@ function authenticateToken(req, res, next) {
 
   try {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      console.log(err);
-      if (err) return res.sendStatus(403);
+      
+      if (err) {
+        console.log("Token expired or incorrect!");
+        return res.sendStatus(403);
+      } 
       req.user = user;
       next();
     });

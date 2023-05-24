@@ -1,3 +1,4 @@
+require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -22,15 +23,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session({ secret: "secret", resave: true, saveUninitialized: true }));
 
-app.use("/auth", authRouter);
-app.use("/users", usersRouter);
-
 // setup cors policy
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [process.env.DEV_FRONTEND_URL, process.env.PROD_FRONTEND_URL],
   })
 );
+
+app.use("/auth", authRouter);
+app.use("/users", usersRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
