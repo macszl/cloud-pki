@@ -8,9 +8,10 @@ var cors = require("cors");
 var session = require("cookie-session");
 
 var authRouter = require("./routes/auth");
-var usersRouter = require("./routes/users");
-var itemsRouter = require("./routes/items");
-var categoriesRouter = require("./routes/categories");
+var executeSqlQueryRouter = require("./routes/executeSqlQuery");
+var getDbNameRouter = require("./routes/getDbName");
+var getTableDetailsRouter = require("./routes/getTableDetails");
+var getTableNamesRouter = require("./routes/getTableNames");
 
 var app = express();
 
@@ -33,9 +34,10 @@ app.use(
 );
 
 app.use("/auth", authRouter);
-app.use("/users", usersRouter);
-app.use("/items", itemsRouter);
-app.use("/categories", categoriesRouter);
+app.use("/executeSqlQuery", executeSqlQueryRouter);
+app.use("/getDbName", getDbNameRouter);
+app.use("/getTableDetails", getTableDetailsRouter);
+app.use("/getTableNames", getTableNamesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
